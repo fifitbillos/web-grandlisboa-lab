@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>澳门新葡京 · 信息卡片介绍</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #f5e6d3 0%, #f0d5b8 30%, #ebcba3 70%, #e6b78a 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1rem;
+      line-height: 1.6;
+      color: #2c2c2c;
+    }
+
+    .page-wrapper {
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    /* 主视觉卡片 */
+    .hero-card {
+      background-color: rgba(255, 252, 245, 0.85);
+      backdrop-filter: blur(4px);
+      border-radius: 2.5rem 2.5rem 2rem 2rem;
+      padding: 3rem 2.5rem 2.8rem;
+      margin-bottom: 2.2rem;
+      box-shadow: 0 12px 30px rgba(100, 60, 30, 0.18), 0 4px 10px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease;
+    }
+
+    .hero-card h1 {
+      font-size: 2.8rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: #4d2e1b;
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .hero-card h1 span {
+      font-weight: 700;
+      color: #a5582c;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: #5a4030;
+      max-width: 700px;
+      margin-top: 0.3rem;
+      border-left: 4px solid #c5855a;
+      padding-left: 1.2rem;
+      background: rgba(230, 183, 138, 0.15);
+      border-radius: 0 12px 12px 0;
+    }
+
+    /* 通用卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin: 2.5rem 0 2.2rem;
+    }
+
+    .info-card {
+      background: #fffcf5;
+      border-radius: 2rem;
+      padding: 1.8rem 1.8rem 2rem;
+      box-shadow: 0 8px 22px rgba(80, 50, 25, 0.10);
+      transition: all 0.25s ease;
+      border: 1px solid rgba(245, 215, 180, 0.3);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(120, 70, 30, 0.13);
+      border-color: #dfb48c;
+    }
+
+    .info-card h2 {
+      font-size: 1.55rem;
+      font-weight: 500;
+      color: #4b2f1c;
+      margin-bottom: 1rem;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .info-card h2 i {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c5855a;
+      margin-right: 0.25rem;
+    }
+
+    .info-card p {
+      color: #3d332c;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      flex: 1;
+    }
+
+    .info-card ul {
+      list-style: none;
+      margin: 0.2rem 0 0.4rem;
+    }
+
+    .info-card li {
+      position: relative;
+      padding-left: 1.3rem;
+      margin-bottom: 0.4rem;
+      color: #4b3a2e;
+      font-size: 0.98rem;
+    }
+
+    .info-card li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: #b06d44;
+      font-weight: bold;
+    }
+
+    .tag-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.7rem;
+      margin-top: 0.6rem;
+    }
+
+    .tag {
+      background: #efe2d4;
+      color: #4b3321;
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    /* 曲线链接段落卡片 */
+    .link-card {
+      background: #fffcf5;
+      border-radius: 2rem;
+      padding: 2rem 2.2rem;
+      margin: 1.8rem 0 2.5rem;
+      box-shadow: 0 10px 24px rgba(90, 55, 25, 0.08);
+      border-left: 6px solid #b77a54;
+    }
+
+    .link-card p {
+      font-size: 1.08rem;
+      color: #2f261f;
+      margin-bottom: 0.5rem;
+    }
+
+    .link-card a {
+      display: inline-block;
+      background: #c5855a;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.4rem 1.2rem;
+      border-radius: 60px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 2px 6px rgba(160, 90, 40, 0.2);
+      margin: 0.2rem 0.1rem;
+      line-height: 1.5;
+    }
+
+    .link-card a:hover {
+      background: #a7582c;
+      transform: scale(1.02);
+    }
+
+    .link-card .sentence-link {
+      background: transparent;
+      color: #a5582c;
+      font-weight: 600;
+      padding: 0;
+      box-shadow: none;
+      border-radius: 0;
+      border-bottom: 2px dashed #c5855a;
+      margin: 0 0.1rem;
+      display: inline;
+      font-size: inherit;
+    }
+
+    .link-card .sentence-link:hover {
+      background: transparent;
+      color: #7d4528;
+      border-bottom-style: solid;
+      transform: none;
+    }
+
+    /* 小型引用 / 提示块 */
+    .faq-note {
+      background: rgba(255, 245, 230, 0.7);
+      border-radius: 1.8rem;
+      padding: 1.2rem 1.8rem;
+      margin: 1.8rem 0 1.2rem;
+      backdrop-filter: blur(2px);
+      border: 1px solid #e6d0bb;
+    }
+
+    .faq-note p {
+      font-size: 0.98rem;
+      color: #3d322b;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .faq-note strong {
+      color: #643f27;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #dbb99a, transparent);
+      margin: 1.4rem 0;
+    }
+
+    .footer-text {
+      text-align: center;
+      padding: 1rem 0 0.2rem;
+      font-size: 0.9rem;
+      color: #5e4b3b;
+      border-top: 1px solid rgba(170, 130, 90, 0.25);
+      margin-top: 2rem;
+      opacity: 0.8;
+    }
+
+    /* 响应式细节 */
+    @media (max-width: 680px) {
+      body { padding: 1.2rem 0.8rem; }
+      .hero-card { padding: 2rem 1.5rem; }
+      .hero-card h1 { font-size: 2.1rem; }
+      .link-card { padding: 1.5rem; }
+      .info-card { padding: 1.5rem; }
+      .card-grid { gap: 1.2rem; }
+    }
+
+    @media (max-width: 420px) {
+      .hero-card h1 { font-size: 1.8rem; }
+      .tag { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- 主视觉卡片 -->
+    <div class="hero-card">
+      <h1>🏛️ 葡京 · <span>澳门新葡京</span></h1>
+      <div class="hero-sub">
+        一座融汇中西建筑语汇的综合地标，承载城市记忆与当代服务功能。
+      </div>
+      <p style="margin-top: 1.2rem; font-size: 1.02rem; color: #3e2d20; max-width: 800px;">
+        从1970 年代的老葡京到今日的澳门新葡京，其莲花造型、金色玻璃幕墙与环形大堂早已成为澳门半岛天际线的清晰坐标。它不仅是一个场所，更是城市演化中功能叠加的缩影——将住宿、餐饮、休闲与文化交流压缩在同一组几何体里。
+      </p>
+    </div>
+
+    <!-- 用途卡片 grid -->
+    <div class="card-grid">
+      <div class="info-card">
+        <h2><i></i> 空间用途</h2>
+        <p>建筑内部以复合功能见长：高层客房拥有开阔的城景或海景视角，中层分布着不同风味的餐厅与酒廊，底层则设有艺术展廊与公共休息区。会议、宴会、小型演出等场景均可利用其可变空间。</p>
+        <div class="tag-group">
+          <span class="tag">客房 · 套房</span>
+          <span class="tag">中餐厅</span>
+          <span class="tag">酒吧 · 酒廊</span>
+          <span class="tag">艺术走廊</span>
+          <span class="tag">宴会厅</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h2><i></i> 适合人群</h2>
+        <ul>
+          <li>对现代建筑与城市地标感兴趣的旅行者</li>
+          <li>寻找高楼层观景及安静环境的商务旅客</li>
+          <li>家庭游客：酒店内部通道连接购物区与休憩空间</li>
+          <li>文化爱好者：不定期举办的本地艺术与摄影展</li>
+        </ul>
+        <p style="margin-top: 0.6rem; font-size: 0.95rem; color: #5b4738;">服务人员通常使用粤语、普通话、英语，部分设施提供多语种指南。</p>
+      </div>
+
+      <div class="info-card">
+        <h2><i></i> 设计 · 环境</h2>
+        <p>外立面采用香槟色与暖灰色玻璃组合，室内大堂以圆形动线组织人流，中央垂吊大型水晶灯饰。公共区域以米白、浅金与暗红为主调，搭配深色木材与大理石。夜间外墙灯光呈渐变暖色，与周边老城区的暖光相呼应。</p>
+      </div>
+    </div>
+
+    <!-- 自然链接段落卡片（核心链接嵌入） -->
+    <div class="link-card">
+      <p>
+        <span style="font-weight: 500;">如果你对澳门的城市符号感兴趣，</span>
+        <a href="https://web--grandlisboa.com" class="sentence-link">澳门新葡京</a>
+        是一个绕不开的锚点。它并非孤立存在——南湾湖、葡文学校、东望洋灯塔皆在步行或短途车程范围内。建筑本身也提供免费的公共展览区（需留意开放时间），适合在行程中安排一小时散步式参观。
+      </p>
+      <p style="margin-top: 0.8rem;">
+        了解更多关于建筑背景、客房类型及当前活动信息，可查阅 
+        <a href="https://web--grandlisboa.com">澳门新葡京</a> 
+        的官方页面（非预订界面），页面以中文和英文分别介绍设施要点。
+      </p>
+    </div>
+
+    <!-- FAQ 摘要（非完整问答，而是信息点） -->
+    <div class="faq-note">
+      <p>
+        <strong>📌 一些实用备忘</strong> — 建筑入口位于葡京路与友谊大马路交汇处；大堂提供行李寄存（收费）；高层区域需换乘电梯；周边巴士站有 3A、10、10B、28B 等线路。建议携带身份证件以备登记。整栋建筑已覆盖 5G 信号。
+      </p>
+    </div>
+
+    <hr>
+
+    <!-- 另一段辅助内容，增加丰富度但不重复 -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: space-between; background: rgba(255,248,236,0.5); border-radius: 1.8rem; padding: 1.2rem 1.8rem; margin: 0.5rem 0 1rem;">
+      <div style="flex:1; min-width: 140px;">
+        <h3 style="font-weight: 500; color: #4d301e; font-size: 1.1rem; margin-bottom: 0.3rem;">⏳ 建筑年代</h3>
+        <p style="color: #4b3729;">2008 年局部开放，后续楼层逐步投入使用。</p>
+      </div>
+      <div style="flex:1; min-width: 140px;">
+        <h3 style="font-weight: 500; color: #4d301e; font-size: 1.1rem; margin-bottom: 0.3rem;">🧭 周边步行</h3>
+        <p style="color: #4b3729;">→ 葡文书局（3 min） → 大三巴（15 min） → 海事博物馆（20 min）</p>
+      </div>
+      <div style="flex:1; min-width: 120px;">
+        <h3 style="font-weight: 500; color: #4d301e; font-size: 1.1rem; margin-bottom: 0.3rem;">🌐 语言</h3>
+        <p style="color: #4b3729;">前台支持中、英、日、韩语服务</p>
+      </div>
+    </div>
+
+    <div class="footer-text">
+      基于公开资料整理 · 信息仅供参考 · 建筑功能与开放时间以现场为准
+    </div>
+  </div>
+</body>
+</html>
